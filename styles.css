@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d13a76;
+    font-family: 'Poppins';
+    background-image:
+        linear-gradient(rgba(209, 58, 118, 0.7), rgba(209, 58, 118, 0.7)),
+        url(/img/jokes-bg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    margin: 10px;
+    padding: 20px;
+}
+
+.joke_container {
+    background-color: beige;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 20px;
+}
+
+h1 {
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.jokes_btn {
+    text-align: center;
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: #d13a76;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 10px 20px 10px 20px;
+    font-family: 'Poppins';
+    transition: background-color 0.3s ease, transform 0.3s ease;    
+
+}
+
+.jokes_btn:hover {
+    background-color: #fceb4e;
+    border: 2px solid #fceb4e;
+    color: #d13a76;
+    box-shadow: 5px 5px 10px #cd82a0;
+    transform: scale(1.05);
+}
