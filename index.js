@@ -37,6 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var button = document.querySelector(".jokes_btn");
 var jokesContainer = document.querySelector(".joke_container");
+var scoreBtn1 = document.getElementById("score1");
+var scoreBtn2 = document.getElementById("score2");
+var scoreBtn3 = document.getElementById("score3");
+var reportJokes = [];
 var getJokes = function () { return __awaiter(_this, void 0, void 0, function () {
     var response, data;
     return __generator(this, function (_a) {
@@ -74,8 +78,29 @@ var printJokes = function () { return __awaiter(_this, void 0, void 0, function 
         }
     });
 }); };
+var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, function () {
+    var jokeString, score, currentDate, objectScores, existingJoke;
+    return __generator(this, function (_a) {
+        jokeString = (jokesContainer === null || jokesContainer === void 0 ? void 0 : jokesContainer.textContent) || "";
+        score = scoreValue;
+        currentDate = (new Date()).toISOString();
+        objectScores = {};
+        objectScores.date = currentDate;
+        objectScores.joke = jokeString;
+        objectScores.score = score;
+        existingJoke = reportJokes.find(function (jokes) { return jokes.joke === jokeString; });
+        if (!existingJoke) {
+            reportJokes.push(objectScores);
+        }
+        else {
+            existingJoke.score = scoreValue;
+            existingJoke.date = currentDate;
+        }
+        return [2 /*return*/, console.log(reportJokes)];
+    });
+}); };
 button.addEventListener('click', printJokes);
+scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
+scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
+scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
 document.addEventListener('DOMContentLoaded', printJokes);
-//Ejercicio dos se puede usar stringify
-//printJokes
-// por qué da error en la terminal???? 
