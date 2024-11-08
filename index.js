@@ -41,9 +41,10 @@ var weatherContainer = document.querySelector(".weather_container");
 var scoreBtn1 = document.getElementById("score1");
 var scoreBtn2 = document.getElementById("score2");
 var scoreBtn3 = document.getElementById("score3");
+//get jokes
 var reportJokes = [];
 var getJokes = function () { return __awaiter(_this, void 0, void 0, function () {
-    var response, data;
+    var response, data, finalJoke;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fetch("https://icanhazdadjoke.com/", { headers: { 'Accept': 'application/json' } })];
@@ -56,20 +57,53 @@ var getJokes = function () { return __awaiter(_this, void 0, void 0, function ()
             case 2:
                 data = _a.sent();
                 console.log("data: ", data);
-                return [2 /*return*/, data];
+                finalJoke = data.joke;
+                return [2 /*return*/, finalJoke];
         }
     });
 }); };
+var getChuckNorrisJokes = function () { return __awaiter(_this, void 0, void 0, function () {
+    var response, data, finalNorrisJoke;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, fetch("https://api.chucknorris.io/jokes/random", { headers: { 'Accept': 'application/json' } })];
+            case 1:
+                response = _a.sent();
+                if (!response.ok) {
+                    throw new Error("API mal " + response.status);
+                }
+                return [4 /*yield*/, response.json()];
+            case 2:
+                data = _a.sent();
+                console.log("Norris data: ", data);
+                finalNorrisJoke = data.value;
+                return [2 /*return*/, finalNorrisJoke];
+        }
+    });
+}); };
+//decide random jokes
+var getRandomJoke = function () { return __awaiter(_this, void 0, void 0, function () {
+    var randomNumber;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                randomNumber = Math.random() < 0.5 ? getJokes() : getChuckNorrisJokes();
+                return [4 /*yield*/, randomNumber];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+//print joke
 var printJokes = function () { return __awaiter(_this, void 0, void 0, function () {
-    var newJoke, error_1;
+    var finalJoke, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, getJokes()];
+                return [4 /*yield*/, getRandomJoke()];
             case 1:
-                newJoke = _a.sent();
-                jokesContainer.textContent = newJoke.joke;
+                finalJoke = _a.sent();
+                jokesContainer.textContent = finalJoke;
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
@@ -79,6 +113,7 @@ var printJokes = function () { return __awaiter(_this, void 0, void 0, function 
         }
     });
 }); };
+//rating jokes
 var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, function () {
     var jokeString, score, currentDate, objectScores, existingJoke;
     return __generator(this, function (_a) {
@@ -100,6 +135,7 @@ var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, 
         return [2 /*return*/, console.log(reportJokes)];
     });
 }); };
+//get weather
 var getWeather = function () { return __awaiter(_this, void 0, void 0, function () {
     var weatherResponse, weatherData;
     return __generator(this, function (_a) {
@@ -139,6 +175,7 @@ var printWeather = function () { return __awaiter(_this, void 0, void 0, functio
         }
     });
 }); };
+//buttons and jokes on load
 button.addEventListener('click', printJokes);
 scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
 scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
