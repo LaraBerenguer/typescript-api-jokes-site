@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var button = document.querySelector(".jokes_btn");
 var jokesContainer = document.querySelector(".joke_container");
+var weatherContainer = document.querySelector(".weather_container");
 var scoreBtn1 = document.getElementById("score1");
 var scoreBtn2 = document.getElementById("score2");
 var scoreBtn3 = document.getElementById("score3");
@@ -99,8 +100,48 @@ var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, 
         return [2 /*return*/, console.log(reportJokes)];
     });
 }); };
+var getWeather = function () { return __awaiter(_this, void 0, void 0, function () {
+    var weatherResponse, weatherData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, fetch("https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/08019", { headers: { 'Accept': 'application/json' } })];
+            case 1:
+                weatherResponse = _a.sent();
+                if (!weatherResponse.ok) {
+                    throw new Error("API mal " + weatherResponse.status);
+                }
+                return [4 /*yield*/, weatherResponse.json()];
+            case 2:
+                weatherData = _a.sent();
+                console.log("Weather data: ", weatherData);
+                return [2 /*return*/, weatherData];
+        }
+    });
+}); };
+var printWeather = function () { return __awaiter(_this, void 0, void 0, function () {
+    var currentWeather, sky, temperature, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, getWeather()];
+            case 1:
+                currentWeather = _a.sent();
+                sky = currentWeather.stateSky.description;
+                temperature = currentWeather.temperatura_actual;
+                weatherContainer.textContent = "Current weather: ".concat(sky, ", ").concat(temperature, "\u00B0C");
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                weatherContainer.textContent = "Weather couldn't load";
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 button.addEventListener('click', printJokes);
 scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
 scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
 scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
 document.addEventListener('DOMContentLoaded', printJokes);
+document.addEventListener('DOMContentLoaded', printWeather);

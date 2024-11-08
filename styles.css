@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 body {
-    height: 80vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,9 +10,10 @@ body {
     font-family: 'Poppins';
     background-image:
         linear-gradient(rgba(209, 58, 118, 0.7), rgba(209, 58, 118, 0.7)),
-        url(/img/jokes-bg.jpg);
+        url(/img/jokes_bg_fullhd.jpg);
     background-size: cover;
     background-position: center;
+
 }
 
 .container {
@@ -26,7 +27,7 @@ body {
 }
 
 .joke_container {
-    background-color: rgb(242, 242, 226);
+    background-color: rgb(242, 242, 233);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
@@ -52,7 +53,7 @@ h1 {
     border-radius: 8px;
     padding: 10px 20px 10px 20px;
     font-family: 'Poppins';
-    transition: background-color 0.3s ease, transform 0.3s ease;    
+    transition: background-color 0.3s ease, transform 0.3s ease;
 
 }
 
@@ -70,10 +71,17 @@ h1 {
     font-size: 30px;
     border: 2px solid transparent;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    transition: background-color 0.3s ease, transform 0.3s ease; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .joke_score_btn:hover {
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.weather_container {
+    margin-top: 100px;
+    padding: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
