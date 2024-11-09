@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _a;
 var _this = this;
 var button = document.querySelector(".jokes_btn");
 var jokesContainer = document.querySelector(".joke_container");
@@ -41,6 +42,7 @@ var weatherContainer = document.querySelector(".weather_container");
 var scoreBtn1 = document.getElementById("score1");
 var scoreBtn2 = document.getElementById("score2");
 var scoreBtn3 = document.getElementById("score3");
+var statusElement = document.getElementById("status");
 //get jokes
 var reportJokes = [];
 var getJokes = function () { return __awaiter(_this, void 0, void 0, function () {
@@ -136,11 +138,70 @@ var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, 
     });
 }); };
 //get weather
-var getWeather = function () { return __awaiter(_this, void 0, void 0, function () {
-    var weatherResponse, weatherData;
+/*
+
+const getWeather = async () => {
+    const weatherResponse = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f", { headers: { 'Accept': 'application/json' } });
+
+    if (!weatherResponse.ok) {
+        throw new Error("API mal " + weatherResponse.status);
+    }
+
+    const weatherData = await weatherResponse.json()
+    console.log("New Weather data: ", weatherData);
+    return weatherData;
+}
+
+const printWeather = async () => {
+    try {
+        let currentWeather = await getWeather();
+        let icon = currentWeather.weather[0].icon;
+        console.log("icon: ", icon);
+        let temperature = parseInt(currentWeather.main.temp);
+
+        let weatherHTML = weatherContainer as HTMLInputElement;
+        weatherHTML.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="current weather" width="50" height="50" class="weather_icon"><p>${temperature}°C</p>`;
+
+    }
+
+    catch (error) {
+        weatherContainer!.textContent = "Weather couldn't load";
+    }
+}
+    */
+//location for weather
+function geoFindMe() {
+    var status = document.querySelector("#status");
+    statusElement.style.display = "block";
+    function success(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        printWeather(latitude, longitude);
+    }
+    function error() {
+        status.textContent = "Showing default location: Barcelona";
+        printWeather();
+        setTimeout(function () { statusElement.style.display = "none"; }, 5000);
+    }
+    if (!navigator.geolocation) {
+        status.textContent = "Sorry! Your browser does not support Geolocation ):";
+        printWeather();
+    }
+    else {
+        status.textContent = "Locating…";
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+}
+//new version get and print weather
+var getWeather = function (lat, long) { return __awaiter(_this, void 0, void 0, function () {
+    var userLat, userLong, weatherResponse, weatherData, weatherResponse, weatherData;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch("https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/08019", { headers: { 'Accept': 'application/json' } })];
+            case 0:
+                if (!(typeof lat !== 'undefined')) return [3 /*break*/, 3];
+                userLat = lat;
+                userLong = long;
+                return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?lat=".concat(userLat, "&lon=").concat(userLong, "&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f"), { headers: { 'Accept': 'application/json' } })];
             case 1:
                 weatherResponse = _a.sent();
                 if (!weatherResponse.ok) {
@@ -149,36 +210,71 @@ var getWeather = function () { return __awaiter(_this, void 0, void 0, function 
                 return [4 /*yield*/, weatherResponse.json()];
             case 2:
                 weatherData = _a.sent();
-                console.log("Weather data: ", weatherData);
+                console.log("New Weather data: ", weatherData);
+                return [2 /*return*/, weatherData];
+            case 3: return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f", { headers: { 'Accept': 'application/json' } })];
+            case 4:
+                weatherResponse = _a.sent();
+                if (!weatherResponse.ok) {
+                    throw new Error("API mal " + weatherResponse.status);
+                }
+                return [4 /*yield*/, weatherResponse.json()];
+            case 5:
+                weatherData = _a.sent();
+                console.log("New Weather data: ", weatherData);
                 return [2 /*return*/, weatherData];
         }
     });
 }); };
-var printWeather = function () { return __awaiter(_this, void 0, void 0, function () {
-    var currentWeather, sky, temperature, error_2;
+var printWeatherNoLocation = function () { return printWeather(undefined, undefined); };
+var printWeather = function (lat, long) { return __awaiter(_this, void 0, void 0, function () {
+    var userLat, userLong, currentWeather, icon, temperature, weatherHTML, error_2, currentWeather, icon, temperature, weatherHTML, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, getWeather()];
+                if (!(typeof lat !== 'undefined')) return [3 /*break*/, 5];
+                userLat = lat;
+                userLong = long;
+                _a.label = 1;
             case 1:
-                currentWeather = _a.sent();
-                sky = currentWeather.stateSky.description;
-                temperature = currentWeather.temperatura_actual;
-                weatherContainer.textContent = "Current weather: ".concat(sky, ", ").concat(temperature, "\u00B0C");
-                return [3 /*break*/, 3];
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, getWeather(userLat, userLong)];
             case 2:
+                currentWeather = _a.sent();
+                icon = currentWeather.weather[0].icon;
+                temperature = parseInt(currentWeather.main.temp);
+                weatherHTML = weatherContainer;
+                weatherHTML.innerHTML = "<img src=\"https://openweathermap.org/img/wn/".concat(icon, "@2x.png\" alt=\"current weather\" width=\"50\" height=\"50\" class=\"weather_icon\"><p>").concat(temperature, "\u00B0C</p>");
+                return [3 /*break*/, 4];
+            case 3:
                 error_2 = _a.sent();
                 weatherContainer.textContent = "Weather couldn't load";
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 8];
+            case 5:
+                _a.trys.push([5, 7, , 8]);
+                return [4 /*yield*/, getWeather()];
+            case 6:
+                currentWeather = _a.sent();
+                icon = currentWeather.weather[0].icon;
+                console.log("icon: ", icon);
+                temperature = parseInt(currentWeather.main.temp);
+                weatherHTML = weatherContainer;
+                weatherHTML.innerHTML = "<img src=\"https://openweathermap.org/img/wn/".concat(icon, "@2x.png\" alt=\"current weather\" width=\"50\" height=\"50\" class=\"weather_icon\"><p>").concat(temperature, "\u00B0C</p>");
+                return [3 /*break*/, 8];
+            case 7:
+                error_3 = _a.sent();
+                weatherContainer.textContent = "Weather couldn't load";
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
         }
     });
 }); };
-//buttons and jokes on load
+//buttons and first load
 button.addEventListener('click', printJokes);
 scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
 scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
 scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
+(_a = document.querySelector("#find_location")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", geoFindMe);
 document.addEventListener('DOMContentLoaded', printJokes);
-document.addEventListener('DOMContentLoaded', printWeather);
+document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
