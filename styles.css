@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 
 body {
     height: 100vh;
@@ -8,17 +9,45 @@ body {
     align-items: center;
     background-color: #d13a76;
     font-family: 'Poppins';
-    background-image:
-        linear-gradient(rgba(209, 58, 118, 0.7), rgba(209, 58, 118, 0.7)),
-        url(/img/jokes_bg_fullhd.jpg);
-    background-size: cover;
-    background-position: center;
-
 }
 
-.container {
-    margin: 10px;
+.bg_img {
+    mask-image: url(/img/blob/blob1.png);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1
+}
+
+h1 {
+    color: white;
+    font-size: 90px;
+    text-align: center;
+    font-family: 'Impact';
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.joke_container {
+    background-color: rgb(242, 242, 233, 0.7);
+    border-radius: 8px;
     padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;    
+    max-width: 800px;
+}
+
+.fixed_container {
+    min-height: 150px;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
 }
 
 .score_container {
@@ -26,45 +55,11 @@ body {
     padding-bottom: 20px;
 }
 
-.joke_container {
-    background-color: rgb(242, 242, 233);
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-    min-height: 20px;
-}
-
-h1 {
-    color: white;
-    font-size: 250%;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    font-family: 'Poppins';
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.location_btn {
-    font-size: 10px;
-    text-align: center;
-    border: 2px solid #fff;
-    background-color: transparent;
-    color: #fff;
-    font-weight: 500;
-    border-radius: 8px;
-    padding: 5px 10px 5px 10px;
-    font-family: 'Poppins';
-    transition: background-color 0.3s ease, transform 0.3s ease;
-
-}
-
-.location_btn:hover {
-    background-color: #fceb4e;
-    border: 2px solid #fceb4e;
-    color: #d13a76;
-    box-shadow: 5px 5px 10px #cd82a0;
-    transform: scale(1.05);
-    cursor: pointer;
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
 }
 
 .jokes_btn {
@@ -103,7 +98,7 @@ h1 {
 }
 
 .weather_container {
-    margin-top: 100px;
+    margin-top: 20px;
     padding: 10px;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -115,5 +110,29 @@ h1 {
     color: #fff;
     font-size: 12px;
     margin-top: -20px;
+    margin-bottom: 30px;
     justify-items: center;
+}
+
+.location_btn {
+    font-size: 10px;
+    text-align: center;
+    border: 2px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 5px 10px 5px 10px;
+    font-family: 'Poppins';
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.location_btn:hover {
+    background-color: #fceb4e;
+    border: 2px solid #fceb4e;
+    color: #d13a76;
+    box-shadow: 5px 5px 10px #cd82a0;
+    transform: scale(1.05);
+    cursor: pointer;
 }

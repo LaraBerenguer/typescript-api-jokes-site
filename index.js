@@ -43,7 +43,7 @@ var scoreBtn1 = document.getElementById("score1");
 var scoreBtn2 = document.getElementById("score2");
 var scoreBtn3 = document.getElementById("score3");
 var statusElement = document.getElementById("status");
-//get jokes
+//Get and print jokes
 var reportJokes = [];
 var getJokes = function () { return __awaiter(_this, void 0, void 0, function () {
     var response, data, finalJoke;
@@ -77,25 +77,11 @@ var getChuckNorrisJokes = function () { return __awaiter(_this, void 0, void 0, 
                 return [4 /*yield*/, response.json()];
             case 2:
                 data = _a.sent();
-                console.log("Norris data: ", data);
                 finalNorrisJoke = data.value;
                 return [2 /*return*/, finalNorrisJoke];
         }
     });
 }); };
-//decide random jokes
-var getRandomJoke = function () { return __awaiter(_this, void 0, void 0, function () {
-    var randomNumber;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                randomNumber = Math.random() < 0.5 ? getJokes() : getChuckNorrisJokes();
-                return [4 /*yield*/, randomNumber];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
-//print joke
 var printJokes = function () { return __awaiter(_this, void 0, void 0, function () {
     var finalJoke, error_1;
     return __generator(this, function (_a) {
@@ -115,7 +101,19 @@ var printJokes = function () { return __awaiter(_this, void 0, void 0, function 
         }
     });
 }); };
-//rating jokes
+//Get random joke
+var getRandomJoke = function () { return __awaiter(_this, void 0, void 0, function () {
+    var randomNumber;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                randomNumber = Math.random() < 0.7 ? getJokes() : getChuckNorrisJokes();
+                return [4 /*yield*/, randomNumber];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+//Rating jokes
 var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, function () {
     var jokeString, score, currentDate, objectScores, existingJoke;
     return __generator(this, function (_a) {
@@ -137,62 +135,7 @@ var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, 
         return [2 /*return*/, console.log(reportJokes)];
     });
 }); };
-//get weather
-/*
-
-const getWeather = async () => {
-    const weatherResponse = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f", { headers: { 'Accept': 'application/json' } });
-
-    if (!weatherResponse.ok) {
-        throw new Error("API mal " + weatherResponse.status);
-    }
-
-    const weatherData = await weatherResponse.json()
-    console.log("New Weather data: ", weatherData);
-    return weatherData;
-}
-
-const printWeather = async () => {
-    try {
-        let currentWeather = await getWeather();
-        let icon = currentWeather.weather[0].icon;
-        console.log("icon: ", icon);
-        let temperature = parseInt(currentWeather.main.temp);
-
-        let weatherHTML = weatherContainer as HTMLInputElement;
-        weatherHTML.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="current weather" width="50" height="50" class="weather_icon"><p>${temperature}°C</p>`;
-
-    }
-
-    catch (error) {
-        weatherContainer!.textContent = "Weather couldn't load";
-    }
-}
-    */
-//location for weather
-function geoFindMe() {
-    var status = document.querySelector("#status");
-    statusElement.style.display = "block";
-    function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        printWeather(latitude, longitude);
-    }
-    function error() {
-        status.textContent = "Showing default location: Barcelona";
-        printWeather();
-        setTimeout(function () { statusElement.style.display = "none"; }, 5000);
-    }
-    if (!navigator.geolocation) {
-        status.textContent = "Sorry! Your browser does not support Geolocation ):";
-        printWeather();
-    }
-    else {
-        status.textContent = "Locating…";
-        navigator.geolocation.getCurrentPosition(success, error);
-    }
-}
-//new version get and print weather
+//Get and print weather
 var getWeather = function (lat, long) { return __awaiter(_this, void 0, void 0, function () {
     var userLat, userLong, weatherResponse, weatherData, weatherResponse, weatherData;
     return __generator(this, function (_a) {
@@ -210,7 +153,6 @@ var getWeather = function (lat, long) { return __awaiter(_this, void 0, void 0, 
                 return [4 /*yield*/, weatherResponse.json()];
             case 2:
                 weatherData = _a.sent();
-                console.log("New Weather data: ", weatherData);
                 return [2 /*return*/, weatherData];
             case 3: return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f", { headers: { 'Accept': 'application/json' } })];
             case 4:
@@ -221,7 +163,6 @@ var getWeather = function (lat, long) { return __awaiter(_this, void 0, void 0, 
                 return [4 /*yield*/, weatherResponse.json()];
             case 5:
                 weatherData = _a.sent();
-                console.log("New Weather data: ", weatherData);
                 return [2 /*return*/, weatherData];
         }
     });
@@ -257,7 +198,6 @@ var printWeather = function (lat, long) { return __awaiter(_this, void 0, void 0
             case 6:
                 currentWeather = _a.sent();
                 icon = currentWeather.weather[0].icon;
-                console.log("icon: ", icon);
                 temperature = parseInt(currentWeather.main.temp);
                 weatherHTML = weatherContainer;
                 weatherHTML.innerHTML = "<img src=\"https://openweathermap.org/img/wn/".concat(icon, "@2x.png\" alt=\"current weather\" width=\"50\" height=\"50\" class=\"weather_icon\"><p>").concat(temperature, "\u00B0C</p>");
@@ -270,11 +210,43 @@ var printWeather = function (lat, long) { return __awaiter(_this, void 0, void 0
         }
     });
 }); };
-//buttons and first load
+//Location for weather
+function geoFindMe() {
+    var status = document.querySelector("#status");
+    statusElement.style.display = "block";
+    function success(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        printWeather(latitude, longitude);
+    }
+    function error() {
+        status.textContent = "Showing default location: Barcelona";
+        printWeather();
+        setTimeout(function () { statusElement.style.display = "none"; }, 5000);
+    }
+    if (!navigator.geolocation) {
+        status.textContent = "Sorry! Your browser does not support Geolocation ):";
+        printWeather();
+    }
+    else {
+        status.textContent = "Locating…";
+        navigator.geolocation.getCurrentPosition(success, error);
+        var noLocationTimeout = setTimeout(function () { error(); }, 10000);
+    }
+}
+//Change background blob
+var randomBlob = function () {
+    var newBlobMask = document.querySelector('.bg_img');
+    var randomBlob = Math.floor(Math.random() * 4) + 1;
+    newBlobMask.style.maskImage = "url(/img/blob/blob".concat(randomBlob, ".png)");
+};
+//Buttons
 button.addEventListener('click', printJokes);
+button.addEventListener('click', randomBlob);
 scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
 scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
 scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
 (_a = document.querySelector("#find_location")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", geoFindMe);
+//Load automatically
 document.addEventListener('DOMContentLoaded', printJokes);
 document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
