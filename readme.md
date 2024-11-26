@@ -11,6 +11,10 @@ A joke generator built with TypeScript to practice API calls and asynchronous pr
 - CSS
 - Fetch API
 
+## 🔑 .env configuration
+
+In this case the project provides a key for the exercise. In another type of project this key would have to be provided by the user and the project would include an .env.example. This is just info, no actions are requires!
+
 ## 📋 Requirements
 
 - Node.js and npm installed on your system. You can download them from [nodejs.org](https://nodejs.org/).
@@ -18,6 +22,7 @@ A joke generator built with TypeScript to practice API calls and asynchronous pr
 - Typescript installed on your system.
 
 - One of the features will cause the browser to ask for your location. It may not work on local host. Instructions on how to fix it below.
+
 
 **✔️ Step 1:** Install npm and project dependencies by running:
 

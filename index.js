@@ -34,14 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a;
 var _this = this;
-var button = document.querySelector(".jokes_btn");
 var jokesContainer = document.querySelector(".joke_container");
 var weatherContainer = document.querySelector(".weather_container");
-var scoreBtn1 = document.getElementById("score1");
-var scoreBtn2 = document.getElementById("score2");
-var scoreBtn3 = document.getElementById("score3");
 var statusElement = document.getElementById("status");
 //Get and print jokes
 var reportJokes = [];
@@ -132,7 +127,8 @@ var rateJokes = function (scoreValue) { return __awaiter(_this, void 0, void 0, 
             existingJoke.score = scoreValue;
             existingJoke.date = currentDate;
         }
-        return [2 /*return*/, console.log(reportJokes)];
+        console.log(reportJokes);
+        return [2 /*return*/];
     });
 }); };
 //Get and print weather
@@ -240,13 +236,21 @@ var randomBlob = function () {
     var randomBlob = Math.floor(Math.random() * 4) + 1;
     newBlobMask.style.maskImage = "url(/img/blob/blob".concat(randomBlob, ".png)");
 };
-//Buttons
-button.addEventListener('click', printJokes);
-button.addEventListener('click', randomBlob);
-scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
-scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
-scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
-(_a = document.querySelector("#find_location")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", geoFindMe);
-//Load automatically
-document.addEventListener('DOMContentLoaded', printJokes);
-document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
+var initializeListeners = function () {
+    var _a;
+    var button = document.querySelector(".jokes_btn");
+    var scoreBtn1 = document.getElementById("score1");
+    var scoreBtn2 = document.getElementById("score2");
+    var scoreBtn3 = document.getElementById("score3");
+    //Buttons
+    button.addEventListener('click', printJokes);
+    button.addEventListener('click', randomBlob);
+    scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn1 === null || scoreBtn1 === void 0 ? void 0 : scoreBtn1.getAttribute("data-score")) || "0")); });
+    scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn2 === null || scoreBtn2 === void 0 ? void 0 : scoreBtn2.getAttribute("data-score")) || "0")); });
+    scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.addEventListener('click', function () { return rateJokes(parseInt((scoreBtn3 === null || scoreBtn3 === void 0 ? void 0 : scoreBtn3.getAttribute("data-score")) || "0")); });
+    (_a = document.querySelector("#find_location")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", geoFindMe);
+    //Load automatically
+    document.addEventListener('DOMContentLoaded', printJokes);
+    document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
+};
+initializeListeners();

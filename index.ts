@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 let jokesContainer = document.querySelector(".joke_container");
 let weatherContainer = document.querySelector(".weather_container");
 
@@ -106,11 +109,14 @@ const rateJokes = async (scoreValue: number) => {
 
 const getWeather = async (lat?: number, long?: number) => {
 
+    const apiUrl: string = process.env.API_URL || "";
+    const apiKey: string =  process.env.API_KEY || "";
+
     if (typeof lat !== 'undefined') {
         let userLat = lat;
         let userLong = long;
 
-        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLong}&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f`, { headers: { 'Accept': 'application/json' } });
+        const weatherResponse = await fetch(`${apiUrl}?lat=${userLat}&lon=${userLong}&units=metric&appid=${apiKey}`, { headers: { 'Accept': 'application/json' } });
 
         if (!weatherResponse.ok) {
             throw new Error("API mal " + weatherResponse.status);
@@ -120,7 +126,7 @@ const getWeather = async (lat?: number, long?: number) => {
         return weatherData;
 
     } else {
-        const weatherResponse = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona&units=metric&appid=8dca3ce59fd29705fc5301203cd03e9f", { headers: { 'Accept': 'application/json' } });
+        const weatherResponse = await fetch(`${apiUrl}?q=Barcelona&units=metric&appid=${apiKey}`, { headers: { 'Accept': 'application/json' } });
 
         if (!weatherResponse.ok) {
             throw new Error("API mal " + weatherResponse.status);
