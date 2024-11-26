@@ -1,10 +1,6 @@
-const button = document.querySelector(".jokes_btn");
 let jokesContainer = document.querySelector(".joke_container");
 let weatherContainer = document.querySelector(".weather_container");
 
-const scoreBtn1 = document.getElementById("score1");
-const scoreBtn2 = document.getElementById("score2");
-const scoreBtn3 = document.getElementById("score3");
 const statusElement = document.getElementById("status");
 
 interface Joke {
@@ -63,7 +59,7 @@ const printJokes = async () => {
     catch (error) {
         jokesContainer!.textContent = "Error: joke couldn't load";
     }
-   
+
 }
 
 //Get random joke
@@ -102,7 +98,7 @@ const rateJokes = async (scoreValue: number) => {
         existingJoke.date = currentDate;
     }
 
-    return console.log(reportJokes);
+    console.log(reportJokes);
 
 }
 
@@ -136,7 +132,7 @@ const getWeather = async (lat?: number, long?: number) => {
 
 }
 
-const printWeatherNoLocation = () => printWeather(undefined,undefined);
+const printWeatherNoLocation = () => printWeather(undefined, undefined);
 
 
 const printWeather = async (lat?: number, long?: number) => {
@@ -147,7 +143,7 @@ const printWeather = async (lat?: number, long?: number) => {
 
         try {
             let currentWeather = await getWeather(userLat, userLong);
-            let icon = currentWeather.weather[0].icon;            
+            let icon = currentWeather.weather[0].icon;
             let temperature = parseInt(currentWeather.main.temp);
 
             let weatherHTML = weatherContainer as HTMLInputElement;
@@ -191,7 +187,7 @@ function geoFindMe(): void {
     function error(): void {
         status.textContent = "Showing default location: Barcelona";
         printWeather();
-        setTimeout(() => {statusElement!.style.display = "none"}, 5000);
+        setTimeout(() => { statusElement!.style.display = "none" }, 5000);
     }
 
     if (!navigator.geolocation) {
@@ -212,16 +208,27 @@ const randomBlob = () => {
     newBlobMask!.style.maskImage = `url(/img/blob/blob${randomBlob}.png)`;
 }
 
-//Buttons
+const initializeListeners = () => {
 
-button!.addEventListener('click', printJokes);
-button!.addEventListener('click', randomBlob);
-scoreBtn1?.addEventListener('click', () => rateJokes(parseInt(scoreBtn1?.getAttribute("data-score") || "0")));
-scoreBtn2?.addEventListener('click', () => rateJokes(parseInt(scoreBtn2?.getAttribute("data-score") || "0")));
-scoreBtn3?.addEventListener('click', () => rateJokes(parseInt(scoreBtn3?.getAttribute("data-score") || "0")));
-document.querySelector("#find_location")?.addEventListener("click", geoFindMe);
+    const button = document.querySelector(".jokes_btn");
+    const scoreBtn1 = document.getElementById("score1");
+    const scoreBtn2 = document.getElementById("score2");
+    const scoreBtn3 = document.getElementById("score3");
 
-//Load automatically
+    //Buttons
 
-document.addEventListener('DOMContentLoaded', printJokes);
-document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
+    button!.addEventListener('click', printJokes);
+    button!.addEventListener('click', randomBlob);
+    scoreBtn1?.addEventListener('click', () => rateJokes(parseInt(scoreBtn1?.getAttribute("data-score") || "0")));
+    scoreBtn2?.addEventListener('click', () => rateJokes(parseInt(scoreBtn2?.getAttribute("data-score") || "0")));
+    scoreBtn3?.addEventListener('click', () => rateJokes(parseInt(scoreBtn3?.getAttribute("data-score") || "0")));
+    document.querySelector("#find_location")?.addEventListener("click", geoFindMe);
+
+    //Load automatically
+
+    document.addEventListener('DOMContentLoaded', printJokes);
+    document.addEventListener('DOMContentLoaded', printWeatherNoLocation);
+}
+
+initializeListeners();
+
