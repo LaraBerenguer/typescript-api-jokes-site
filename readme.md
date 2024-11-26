@@ -11,9 +11,27 @@ A joke generator built with TypeScript to practice API calls and asynchronous pr
 - CSS
 - Fetch API
 
-## 🔑 .env configuration
+## 🔑 Setting up .env configuration
 
-In this case the project provides a key for the exercise. In another type of project this key would have to be provided by the user and the project would include an .env.example. This is just info, no actions are requires!
+To run this project, you need to configure environment variables. Follow these steps:
+
+1. Copy the `.env.example` file and rename it to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+2. Open the .env file and replace your_api_key_here with your own API key from OpenWeather:
+
+```bash
+API_URL=https://api.openweathermap.org/data/2.5/weather
+API_KEY=your_api_key_here
+```
+
+3. If you don’t have an API key, create an account at OpenWeather and generate your key. [OpenWeather API](https://openweathermap.org/api)
+
+4. After setting up the .env file, you’ll be ready to run the project.
+
 
 ## 📋 Requirements
 
