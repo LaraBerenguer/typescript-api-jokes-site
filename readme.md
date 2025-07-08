@@ -2,6 +2,8 @@
 
 ## 📄 Description
 
+Check it live here: https://typescript-api-jokes-site.vercel.app/
+
 A joke generator built with TypeScript to practice API calls and asynchronous programming. This project fetches random jokes from an external API and displays them on the page. Users can rate each joke, and their ratings are stored for reference.
 
 ## 💻 Technologies Used
